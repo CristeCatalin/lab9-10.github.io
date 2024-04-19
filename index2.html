@@ -1,71 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miruna Haiduc</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
- 
-        .container {
-            text-align: center;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
- 
-        h1 {
-            color: #333;
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
- 
-        p {
-            color: #666;
-            font-size: 1.2em;
-            margin-bottom: 30px;
-        }
- 
-        button {
-            padding: 10px 20px;
-            font-size: 1em;
-            border: none;
-            background-color: #4CAF50;
-            color: #fff;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
- 
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Criste Catalin's Cookie Examples</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.code {
+  background-color: #f8f9fa;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 4px;
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>Miruna Haiduc</h1>
-        <p>Bine ai venit la lab</p>
-        <button onclick="alertCookie()">Show cookies</button>
-    </div>
- 
-    <script>
-        document.cookie = "session=test GDPR";
-        document.cookie = "favorite_task=collect Data";
- 
-        function alertCookie() {
-            alert(document.cookie);
-        }
-    </script>
+
+<div class="container">
+  <h1>Welcome, Criste Catalin!</h1>
+  <p>Here are some examples of handling cookies:</p>
+  
+  <!-- Example 1: Simple usage -->
+  <button class="button" onclick="showCookies()">Show cookies</button>
+  <button class="button" onclick="clearOutputCookies()">Clear</button>
+  <div class="code" id="cookies"></div>
+
+  <!-- Example 2: Get a sample cookie named test2 -->
+  <button class="button" onclick="showCookieValue()">Show cookie value</button>
+  <button class="button" onclick="clearOutputCookieValue()">Clear</button>
+  <div class="code" id="cookie-value"></div>
+
+  <!-- Example 3: Do something only once -->
+  <button class="button" onclick="doOnce()">Only do something once</button>
+  <button class="button" onclick="clearOutputDoOnce()">Clear</button>
+  <div class="code" id="do-once"></div>
+
+  <!-- Example 4: Reset the previous cookie -->
+  <button class="button" onclick="resetOnce()">Reset only once cookie</button>
+  <button class="button" onclick="clearOutputResetOnce()">Clear</button>
+  <div class="code" id="reset-once"></div>
+
+  <!-- Example 5: Check a cookie existence -->
+  <button class="button" onclick="checkACookieExists()">Check a cookie exists</button>
+  <button class="button" onclick="clearOutputACookieExists()">Clear</button>
+  <div class="code" id="a-cookie-existence"></div>
+
+  <!-- Example 6: Check that a cookie has a specific value -->
+  <button class="button" onclick="checkCookieHasASpecificValue()">Check that a cookie has a specific value</button>
+  <button class="button" onclick="clearASpecificValueOfTheCookie()">Clear</button>
+  <div class="code" id="a-specific-value-of-the-cookie"></div>
+</div>
+
+<script>
+// Example 1: Simple usage
+document.cookie = "name=oeschger; SameSite=None; Secure";
+document.cookie = "favorite_food=tripe; SameSite=None; Secure";
+
+function showCookies() {
+  const output = document.getElementById("cookies");
+  output.textContent = `> ${document.cookie}`;
+}
+
+function clearOutputCookies() {
+  const output = document.getElementById("cookies");
+  output.textContent = "";
+}
+
+// Example 2: Get a sample cookie named test2
+document.cookie = "test1=Hello; SameSite=None; Secure";
+document.cookie = "test2=World; SameSite=None; Secure";
+
+const cookieValue = document.cookie
+  .split("; ")
+  .find((row) => row.startsWith("test2="))
+  ?.split("=")[1];
+
+function showCookieValue() {
+  const output = document.getElementById("cookie-value");
+  output.textContent = `> ${cookieValue}`;
+}
+
+function clearOutputCookieValue() {
+  const output = document.getElementById("cookie-value");
+  output.textContent = "";
+}
+
+// Example 3: Do something only once
+function doOnce() {
+  if (
+    !document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("doSomethingOnlyOnce"))
+  ) {
+    document.cookie =
+      "doSomethingOnlyOnce=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=None; Secure";
+
+    const output = document.getElementById("do-once");
+    output.textContent = "> Do something here!";
+  }
+}
+
+function clearOutputDoOnce() {
+  const output = document.getElementById("do-once");
+  output.textContent = "";
+}
+
+// Example 4: Reset the previous cookie
+function resetOnce() {
+  document.cookie =
+    "doSomethingOnlyOnce=; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=None; Secure";
+
+  const output = document.getElementById("reset-once");
+  output.textContent = "> Reset!";
+}
+
+function clearOutputResetOnce() {
+  const output = document.getElementById("reset-once");
+  output.textContent = "";
+}
+
+// Example 5: Check a cookie existence
+document.cookie = "reader=1; SameSite=None; Secure";
+
+function checkACookieExists() {
+  if (
+    document.cookie.split(";").some((item) => item.trim().startsWith("reader="))
+  ) {
+    const output = document.getElementById("a-cookie-existence");
+    output.textContent = '> The cookie "reader" exists';
+  }
+}
+
+function clearOutputACookieExists() {
+  const output = document.getElementById("a-cookie-existence");
+  output.textContent = "";
+}
+
+// Example 6: Check that a cookie has a specific value
+function checkCookieHasASpecificValue() {
+  if (document.cookie.split(";").some((item) => item.includes("reader=1"))) {
+    const output = document.getElementById("a-specific-value-of-the-cookie");
+    output.textContent = '> The cookie "reader" has a value of "1"';
+  }
+}
+
+function clearASpecificValueOfTheCookie() {
+  const output = document.getElementById("a-specific-value-of-the-cookie");
+  output.textContent = "";
+}
+</script>
+
 </body>
 </html>
